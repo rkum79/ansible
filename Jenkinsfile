@@ -10,6 +10,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'npm install'
+        git(url: 'https://github.com/rkum79/ansible.git', branch: 'master', changelog: true, credentialsId: '587adf48-114e-49cc-8e19-52bce59625a3', poll: true)
       }
     }
     stage('Test') {
