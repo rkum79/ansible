@@ -13,16 +13,42 @@ pipeline {
         sh 'npm install'
       }
     }
-    stage('Test') {
+    stage('Junit Test') {
       steps {
         sh './jenkins/scripts/test.sh'
       }
     }
-    stage('Deliver') {
+    stage('Dev Depoyment') {
       steps {
         sh './jenkins/scripts/deliver.sh'
-        input 'Finished using the web site? (Click "Proceed" to continue)'
+      }
+    }
+    stage('Dev Test') {
+      parallel {
+        stage('Dev Test - Curl Http_code') {
+          steps {
+            sh 'curl --write-out "%{http_code}\\n" --silent --output /dev/null "http://10.203.46.34:3000"'
+            echo 'Site is working fine with 200 responce'
+          }
+        }
+        stage('Curl Size_download') {
+          steps {
+            sh '''curl -so /dev/null http://10.203.46.34:3000/ -w \'%{size_download}\'
+
+'''
+          }
+        }
+      }
+    }
+    stage('Validated & Approval') {
+      steps {
+        input 'WebSite validation is Finished Approval for cleanup the environment (Click "Proceed" to continue)'
+      }
+    }
+    stage('Cleanup - DEV environment') {
+      steps {
         sh './jenkins/scripts/kill.sh'
+        echo 'DEV environment is deleted'
       }
     }
   }
