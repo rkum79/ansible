@@ -28,7 +28,8 @@ pipeline {
       parallel {
         stage('Dev Test - Curl Http_code') {
           steps {
-            sh 'curl --write-out "%{http_code}\\n" --silent --output /dev/null "http://10.203.46.34:3000"'
+            sh '''curl -s -o /dev/null -I -w "%{http_code}" http://10.203.46.34:3000
+'''
             echo 'Site is working fine with 200 responce'
           }
         }
