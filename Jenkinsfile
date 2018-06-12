@@ -28,9 +28,8 @@ pipeline {
       parallel {
         stage('Dev Test - Curl Http_code') {
           steps {
-            sh '''curl -s -o /dev/null -I -w "%{http_code}" http://10.203.46.34:3000
-'''
-            echo 'Site is working fine with 200 responce'
+            sh './jenkins/scripts/Http_code_status.sh'
+            echo 'Site is working fine with echo ${response} 200 responce'
           }
         }
         stage('Curt Total_time') {
