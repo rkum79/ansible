@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:6-alpine'
-      args '-p 3000:3000 -u root:sudo'
+      args '-p 3000:3000 -u 0 '
     }
     
   }
@@ -11,7 +11,7 @@ pipeline {
       steps {
         git(url: 'https://github.com/rkum79/ansible.git', branch: 'master', changelog: true, credentialsId: '587adf48-114e-49cc-8e19-52bce59625a3', poll: true)
         sh 'npm install'
-        sh 'sudo apk update &&   apk add curl'
+        sh 'apk update &&   apk add curl'
       }
     }
     stage('Junit Test') {
