@@ -33,13 +33,6 @@ pipeline {
             echo 'Site is working fine with 200 responce'
           }
         }
-        stage('Curl Size_download') {
-          steps {
-            sh '''curl -so /dev/null http://10.203.46.34:3000/ -w \'%{size_download}\'
-
-'''
-          }
-        }
         stage('Curt Total_time') {
           steps {
             sh 'curl -w "@./jenkins/scripts/curl-format.txt" -o /dev/null -s "http://10.203.46.34:3000"'
