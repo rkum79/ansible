@@ -24,12 +24,6 @@ pipeline {
         sh './jenkins/scripts/deliver.sh'
       }
     }
-    stage('Dev Test - Curl Http_code') {
-      steps {
-        sh 'sh ./jenkins/scripts/Http_code_status.sh'
-        echo 'Site is working fine with echo ${response} 200 responce'
-      }
-    }
     stage('Validated & Approval') {
       steps {
         input 'WebSite validation is Finished Approval for cleanup the environment (Click "Proceed" to continue)'
