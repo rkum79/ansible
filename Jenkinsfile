@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Curt Total_time') {
           steps {
-            sh 'curl -w "@/jenkins/scripts/curl-format.txt" -o /dev/null -s "http://10.203.46.34:3000"'
+            sh 'curl -w "@./jenkins/scripts/curl-format.txt" -o /dev/null -s "http://10.203.46.34:3000"'
           }
         }
       }
