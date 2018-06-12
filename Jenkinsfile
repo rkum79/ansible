@@ -11,6 +11,8 @@ pipeline {
       steps {
         git(url: 'https://github.com/rkum79/ansible.git', branch: 'master', changelog: true, credentialsId: '587adf48-114e-49cc-8e19-52bce59625a3', poll: true)
         sh 'npm install'
+        sh '''apt-get update && apt-get install curl -y
+'''
       }
     }
     stage('Junit Test') {
@@ -36,6 +38,11 @@ pipeline {
             sh '''curl -so /dev/null http://10.203.46.34:3000/ -w \'%{size_download}\'
 
 '''
+          }
+        }
+        stage('Curt Total_time') {
+          steps {
+            sh 'curl -w "@/jenkins/scripts/curl-format.txt" -o /dev/null -s "http://10.203.46.34:3000"'
           }
         }
       }
