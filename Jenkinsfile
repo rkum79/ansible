@@ -24,19 +24,10 @@ pipeline {
         sh './jenkins/scripts/deliver.sh'
       }
     }
-    stage('Dev Test') {
-      parallel {
-        stage('Dev Test - Curl Http_code') {
-          steps {
-            sh './jenkins/scripts/Http_code_status.sh'
-            echo 'Site is working fine with echo ${response} 200 responce'
-          }
-        }
-        stage('Curt Total_time') {
-          steps {
-            sh 'curl -w "@./jenkins/scripts/curl-format.txt" -o /dev/null -s "http://10.203.46.34:3000"'
-          }
-        }
+    stage('Dev Test - Curl Http_code') {
+      steps {
+        sh 'sh ./jenkins/scripts/Http_code_status.sh'
+        echo 'Site is working fine with echo ${response} 200 responce'
       }
     }
     stage('Validated & Approval') {
