@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Validated & Approval') {
       steps {
-        input 'WebSite validation is Finished Approval for cleanup the environment (Click "Proceed" to continue)'
+        input 'WebSite validation is Finished Approval for cleanup the Environment (Click "Proceed" to continue)'
       }
     }
     stage('Cleanup - DEV environment') {
